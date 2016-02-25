@@ -12,6 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.common.utils.IdUtils;
 import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.CoreInstance;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
@@ -22,7 +23,9 @@ import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
 import org.nuxeo.ecm.core.api.repository.Repository;
 import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.core.event.Event;
+import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.EventListener;
+import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.transaction.TransactionHelper;
 import org.yerbabuena.athento.ecm.utils.AthentoNXUtils;
@@ -54,12 +57,15 @@ public class GeneralListener implements EventListener {
 	static boolean busy = false;
 
 	public void handleEvent(Event event) throws ClientException {
+		EventContext ctx = event.getContext();
+		DocumentEventContext docCtx = (DocumentEventContext)ctx;
+		CoreSession documentManager = docCtx.getCoreSession();
 		if (event.getName().equals(GENERAL_LISTENER)) {
-			afmRecursive();
+			afmRecursive(documentManager);
 		}
 	}
 
-	private void afmRecursive() {
+	private void afmRecursive(CoreSession coreSession) {
 
 		totalDocuments = 0;
 		totalLength = 0;
@@ -95,7 +101,7 @@ public class GeneralListener implements EventListener {
 				long uploadProccessStart = System.currentTimeMillis();
 
 				// Run in folder
-				folderIterator(path, workspaceDestinyRef);
+				folderIterator(path, workspaceDestinyRef, coreSession);
 
 				// Save end time of document upload
 				long uploadProccessEnd = System.currentTimeMillis();
@@ -132,7 +138,8 @@ public class GeneralListener implements EventListener {
 		}
 	}
 
-	private void folderIterator(String path, DocumentRef parentFolderRef)
+	private void folderIterator(
+		String path, DocumentRef parentFolderRef, CoreSession documentManager)
 			throws ClientException, IOException {
 		File directorio = new File(path);
 		String[] ficheros = directorio.list();
@@ -140,7 +147,6 @@ public class GeneralListener implements EventListener {
 			log.debug("Number of Documents in folder '" + path + "': "
 					+ ficheros.length);
 		}
-		CoreSession documentManager = getCoreSession("default");
 
 		// Parent folder document
 		DocumentModel parentFolder = documentManager
@@ -198,7 +204,7 @@ public class GeneralListener implements EventListener {
 				TransactionHelper.commitOrRollbackTransaction();
 				TransactionHelper.startTransaction();
 
-				folderIterator(file.getAbsolutePath(), docModel.getRef());
+				folderIterator(file.getAbsolutePath(), docModel.getRef(), documentManager);
 
 				file.delete();
 
@@ -297,8 +303,8 @@ public class GeneralListener implements EventListener {
 	}
 
 	private void afmOneLevel() {
+		CoreSession documentManager = null;
 		try {
-
 			int numberOfFolders = Integer.parseInt(NUMBER_OF_FOLDERS);
 			log.info("AFM.NumberOfFolders: " + numberOfFolders);
 
@@ -317,8 +323,6 @@ public class GeneralListener implements EventListener {
 				String[] ficheros = directorio.list();
 
 				log.info("Number of Documents in folder: " + ficheros.length);
-
-				CoreSession documentManager = getCoreSession("default");
 
 				if (!busy) {
 
@@ -514,7 +518,7 @@ public class GeneralListener implements EventListener {
 	private static CoreSession getCoreSession(String repo)
 			throws ClientException {
 
-		CoreSession systemSession;
+		CoreSession systemSession = null;
 		try {
 			Framework.login();
 			RepositoryManager manager = Framework
