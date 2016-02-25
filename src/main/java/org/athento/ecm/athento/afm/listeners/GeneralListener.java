@@ -58,10 +58,25 @@ public class GeneralListener implements EventListener {
 
 	public void handleEvent(Event event) throws ClientException {
 		EventContext ctx = event.getContext();
-		DocumentEventContext docCtx = (DocumentEventContext)ctx;
-		CoreSession documentManager = docCtx.getCoreSession();
-		if (event.getName().equals(GENERAL_LISTENER)) {
-			afmRecursive(documentManager);
+		CoreSession documentManager = null;
+		boolean sessionMustBeClosed = false;
+		try {
+			if (!(ctx instanceof DocumentEventContext)) {
+				documentManager = getCoreSession("default");
+				sessionMustBeClosed = true;
+			} else {
+				documentManager = ctx.getCoreSession();
+			}
+			if (event.getName().equals(GENERAL_LISTENER)) {
+				afmRecursive(documentManager);
+			}
+		} finally {
+			if (sessionMustBeClosed) {
+				if (documentManager != null) {
+					CoreInstance server = CoreInstance.getInstance();
+					server.close(documentManager);
+				}
+			}
 		}
 	}
 
