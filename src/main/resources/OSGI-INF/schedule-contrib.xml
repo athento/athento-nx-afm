@@ -1,0 +1,10 @@
+<component name="org.yerbabuena.ecm.athento.afm.schedule.folder">
+	<extension target="org.nuxeo.ecm.platform.scheduler.core.service.SchedulerRegistryService"
+		point="schedule">
+		<schedule id="generalSchedule">
+			<eventId>generalServiceEvent</eventId>
+			<eventCategory>default</eventCategory>
+			<cronExpression>0 0/1 * * * ?</cronExpression>
+		</schedule>
+	</extension>
+</component>

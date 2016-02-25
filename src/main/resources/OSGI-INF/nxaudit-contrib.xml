@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="org.yerbabuena.athento.afm.audit.contrib"
+	version="1.0">
+	<extension target="org.nuxeo.ecm.platform.audit.service.NXAuditEventsService"
+		point="event">
+		<documentation>
+			Those default auditable events match Nuxeo core base events.
+			<p />
+			If you are sending new Nuxeo core events and want them audited, this
+			is the place to
+			declare them NXAudit side.
+		</documentation>
+
+		<event name="documentCaptured" />
+		
+	</extension>
+</component>

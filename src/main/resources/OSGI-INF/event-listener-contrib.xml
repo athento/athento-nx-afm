@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<component name="org.yerbabuena.ecm.athento.afm.listeners">
+	<extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
+		point="listener">
+		<listener name="generalListener" async="false"
+			postCommit="false" class="org.athento.ecm.athento.afm.listeners.GeneralListener">
+			<event>generalServiceEvent</event>
+		</listener>
+	</extension>
+</component>

@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 1
+Bundle-Name: Athento-AFM
+Bundle-SymbolicName: es.yerbabuena.athento.afm
+Bundle-Version: 1.0.0
+Provide-Package: es.yerbabuena.athento.afm
+Require-Bundle: org.nuxeo.ecm.core,
+ org.nuxeo.ecm.core.schema,
+ org.nuxeo.runtime,
+ org.nuxeo.ecm.core.api,
+ org.nuxeo.ecm.platform.convert,
+ org.nuxeo.ecm.core.convert,
+ org.nuxeo.ecm.platform.commandline.executor,
+ org.nuxeo.ecm.webapp.core 
+Nuxeo-Component: OSGI-INF/event-listener-contrib.xml,
+ OSGI-INF/schedule-contrib.xml,
+ OSGI-INF/nxaudit-contrib.xml
+Bundle-Vendor: Yerbabuena Software
+  
