@@ -239,74 +239,78 @@ public class GeneralListener implements EventListener {
 					log.warn("The document is open... it will not be uploaded yet");
 				} else {
 
-					// Save start time of document upload
-					long uploadDocumentStart = System.currentTimeMillis();
+                    String sufix = file.getName();
 
-					FileBlob blob = new FileBlob(file);
+                    // Check if filename exists
+                    if (!existsDocument(documentManager, parentFolder, sufix)) {
+                        // Save start time of document upload
+                        long uploadDocumentStart = System.currentTimeMillis();
 
-					totalLength += file.length();
+                        FileBlob blob = new FileBlob(file);
 
-					// File temporallocal = new
-					// File("/tmp/tmplocal"+System.currentTimeMillis()/*+FILE_EXTENSION*/);
+                        totalLength += file.length();
 
-					String sufix = file.getName();
-					File temporallocal = File.createTempFile("tmplocalAFM_",
-							sufix);
+                        // File temporallocal = new
+                        // File("/tmp/tmplocal"+System.currentTimeMillis()/*+FILE_EXTENSION*/);
 
-					blob.transferTo(temporallocal);
+                        File temporallocal = File.createTempFile("tmplocalAFM_",
+                                sufix);
 
-					FileBlob blob2 = new FileBlob(temporallocal);
+                        blob.transferTo(temporallocal);
 
-					if (log.isInfoEnabled()) {
-						log.info("Uploading document '"
-								+ file.getAbsolutePath() + "' to '"
-								+ parentFolder.getPathAsString() + "' ");
-					}
-					String doctype = Framework.getProperty("AFM.DocumentType",
-							"File");
+                        FileBlob blob2 = new FileBlob(temporallocal);
 
-					DocumentModel docModel = documentManager
-							.createDocumentModel(
-									parentFolder.getPathAsString(),
-									IdUtils.generateStringId(), doctype);
+                        if (log.isInfoEnabled()) {
+                            log.info("Uploading document '"
+                                    + file.getAbsolutePath() + "' to '"
+                                    + parentFolder.getPathAsString() + "' ");
+                        }
+                        String doctype = Framework.getProperty("AFM.DocumentType",
+                                "File");
 
-					// Set title to document
-					docModel.setProperty("dublincore", "title", sufix);
+                        DocumentModel docModel = documentManager
+                                .createDocumentModel(
+                                        parentFolder.getPathAsString(),
+                                        sufix, doctype);
 
-					// Set content to document
-					docModel.setProperty("file", "filename", sufix);
-					docModel.setProperty("file", "content", blob2);
+                        // Set title to document
+                        docModel.setProperty("dublincore", "title", sufix);
 
-					// Create document in repository
-					docModel = documentManager.createDocument(docModel);
+                        // Set content to document
+                        docModel.setProperty("file", "filename", sufix);
+                        docModel.setProperty("file", "content", blob2);
 
-					// Fire captured event
-					// throwDocumentCapturedEvent(file, docModel);
+                        // Create document in repository
+                        docModel = documentManager.createDocument(docModel);
 
-					// To increase the minor version of document
-					incrementMinorVersion(documentManager, docModel);
+                        // Fire captured event
+                        // throwDocumentCapturedEvent(file, docModel);
 
-					documentManager.save();
+                        // To increase the minor version of document
+                        incrementMinorVersion(documentManager, docModel);
 
-					TransactionHelper.commitOrRollbackTransaction();
-					TransactionHelper.startTransaction();
+                        documentManager.save();
 
-					file.delete();
+                        TransactionHelper.commitOrRollbackTransaction();
+                        TransactionHelper.startTransaction();
 
-					temporallocal.delete();
+                        file.delete();
+º
+                        temporallocal.delete();
 
-					// Save end time of document upload
-					long uploadDocumentEnd = System.currentTimeMillis();
+                        // Save end time of document upload
+                        long uploadDocumentEnd = System.currentTimeMillis();
 
-					double estimatedTime = uploadDocumentEnd
-							- uploadDocumentStart;
+                        double estimatedTime = uploadDocumentEnd
+                                - uploadDocumentStart;
 
-					estimatedTime = estimatedTime / 1000.0;
+                        estimatedTime = estimatedTime / 1000.0;
 
-					if (log.isInfoEnabled()) {
-						log.info("Document saved. Elapsed time: "
-								+ estimatedTime + " secs.");
-					}
+                        if (log.isInfoEnabled()) {
+                            log.info("Document saved. Elapsed time: "
+                                    + estimatedTime + " secs.");
+                        }
+                    }
 				}
 			}
 
@@ -317,7 +321,24 @@ public class GeneralListener implements EventListener {
 		}
 	}
 
-	private void afmOneLevel() {
+    /**
+     * Check if a document exists into folder.
+     *
+     * @param documentManager document manager
+     * @param folder is the folder to check
+     * @param documentName
+     * @return true if documentName exists into folder
+     */
+    private boolean existsDocument(CoreSession documentManager, DocumentModel folder, String documentName) {
+        try {
+            documentManager.getChild(folder.getRef(), documentName);
+            return true;
+        } catch (ClientException e) {
+            return false;
+        }
+    }
+
+    private void afmOneLevel() {
 		CoreSession documentManager = null;
 		try {
 			int numberOfFolders = Integer.parseInt(NUMBER_OF_FOLDERS);
