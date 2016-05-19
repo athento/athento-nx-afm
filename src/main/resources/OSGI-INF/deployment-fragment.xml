@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<fragment version="1">
+<fragment>
+
 	<extension target="application#MODULE">
 		<module>
 			<java>${bundle.fileName}</java>
