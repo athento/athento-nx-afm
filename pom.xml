@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.yerbabuena.ecm.athento</groupId>
 	<artifactId>athento-nx-afm</artifactId>
-	<version>3.0</version>
+	<version>3.1</version>
 	<name>Athento-AFM</name>
 	<packaging>jar</packaging>
 	<description>Athento-AFM plugin is used to upload files to a CMIS folder from a filesystem folder.</description>
