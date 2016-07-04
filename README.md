@@ -10,7 +10,8 @@ In configuration file the following properties must be created:
 
     ${ATHENTO_HOST}/bin/nuxeo.conf
 
-Cuantas carpetas del FS estan siendo monitorizadas (N)
+Cuantas carpetas del FS estan siendo monitorizadas (N):
+
     AFM.NumberOfFolders=<N>
 
 Para cada carpeta, ruta en el FS
@@ -21,6 +22,7 @@ Para cada carpeta, ruta en el FS
     AFM.PathDocuments.N=/home/example/example_folder_N/ 
 
 Para cada carpeta, ruta del workspace  (Sin el ultimo y colocando exactamente la misma ruta que se observa en la URL de Nuxeo dentro de ese WorkSpace)
+
     AFM.PathWorkspace.1=/default-domain/workspaces/work_example_1
     AFM.PathWorkspace.2=/default-domain/workspaces/work_example_2
     ...
