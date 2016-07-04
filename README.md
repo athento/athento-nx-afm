@@ -7,6 +7,7 @@ This plugin is used to upload files to a CMIS folder from a filesystem folder.
 ## How to use it?
 
 In configuration file the following properties must be created:
+
     ${ATHENTO_HOST}/bin/nuxeo.conf
 
 Cuantas carpetas del FS estan siendo monitorizadas (N)
