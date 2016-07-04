@@ -1,12 +1,10 @@
 # athento-nx-afm
 
 ## What is it?
------------
 
 This plugin is used to upload files to a CMIS folder from a filesystem folder.
 
 ## How to use it?
---------------
 
 In nuxeo.properties the following properties must be created:
 
@@ -34,8 +32,7 @@ Si se define la propiedad, el tipo de documento indicado, será el que se cree, 
   AFM.DocumentType =<Type>
 
 
-### TODO
-----
+### TODO
 
  * Refactor this component so that source and destiny folder are managed from data base.
  * Refactor component so that "AFM.NumberOfFolders" property is not needed.
@@ -51,27 +48,22 @@ Si se define la propiedad, el tipo de documento indicado, será el que se cree, 
 
 
 ### Latest version
---------------
 
 Details of the latest version can be found at http://doc.athento.com 
 
 ### Documentation
--------------
 
 The documentation available can be found at http://doc.athento.com
 
 ### Instalation
------------
 
 Please see the file called INSTALL or http://doc.athento.com
 
 ### Licensing
----------
 
 Please see the file called LICENSE
 
 ### Contact
--------
 
  * Ask for help at http://answers.athento.com
 
