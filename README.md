@@ -12,7 +12,7 @@ In configuration file the following properties must be created:
 
 Cuantas carpetas del FS estan siendo monitorizadas (N):
 
-    AFM.NumberOfFolders=_<N>_
+    AFM.NumberOfFolders=<N>
 
 Para cada carpeta, ruta en el FS
 
@@ -30,12 +30,12 @@ Para cada carpeta, ruta del workspace  (Sin el ultimo y colocando exactamente la
 
 Para cada carpeta es necesario colocar el ID del workspace
 
-    AFM.IdWorkspace.1=_<docId>_
+    AFM.IdWorkspace.1=<docId>
     ...
 
 Si se define la propiedad, el tipo de documento indicado, será el que se cree, en caso contrario se creara un File.
 
-    AFM.DocumentType=_<Type>_
+    AFM.DocumentType=<Type>
 
 
 ### TODO
