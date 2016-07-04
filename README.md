@@ -9,27 +9,27 @@ This plugin is used to upload files to a CMIS folder from a filesystem folder.
 In nuxeo.properties the following properties must be created:
 
 ### Cuantas carpetas del FS estan siendo monitorizadas (N)
-  AFM.NumberOfFolders=N
+    AFM.NumberOfFolders=N
 
 Para cada carpeta, ruta en el FS
 
-  AFM.PathDocuments.1=/home/example/example_folder_1/ 
-  AFM.PathDocuments.2=/home/example/example_folder_2/
-  ... 
-  AFM.PathDocuments.N=/home/example/example_folder_N/ 
+    AFM.PathDocuments.1=/home/example/example_folder_1/ 
+    AFM.PathDocuments.2=/home/example/example_folder_2/
+    ... 
+    AFM.PathDocuments.N=/home/example/example_folder_N/ 
 
 ### Para cada carpeta, ruta del workspace  (Sin el ultimo y colocando exactamente la misma ruta que se observa en la URL de Nuxeo dentro de ese WorkSpace)
-  AFM.PathWorkspace.1=/default-domain/workspaces/work_example_1
-  AFM.PathWorkspace.2=/default-domain/workspaces/work_example_2
-  ...
-  AFM.PathWorkspace.N=/default-domain/workspaces/work_example_N
+    AFM.PathWorkspace.1=/default-domain/workspaces/work_example_1
+    AFM.PathWorkspace.2=/default-domain/workspaces/work_example_2
+    ...
+    AFM.PathWorkspace.N=/default-domain/workspaces/work_example_N
 
 ### Para cada carpeta es necesario colocar el ID del workspace
-  AFM.IdWorkspace.1=<docId>
-  ...
+    AFM.IdWorkspace.1=<docId>
+    ...
 
 Si se define la propiedad, el tipo de documento indicado, será el que se cree, en caso contrario se creara un File.
-  AFM.DocumentType =<Type>
+    AFM.DocumentType =<Type>
 
 
 ### TODO
