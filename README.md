@@ -10,30 +10,30 @@ In configuration file the following properties must be created:
 
     ${ATHENTO_HOST}/bin/nuxeo.conf
 
-Cuantas carpetas del FS estan siendo monitorizadas (N):
+Number of monitoring folders (N):
 
     AFM.NumberOfFolders=<N>
 
-Para cada carpeta, ruta en el FS
+Each folder configuration into nuxeo.conf:
 
     AFM.PathDocuments.1=/home/example/example_folder_1/ 
     AFM.PathDocuments.2=/home/example/example_folder_2/
     ... 
     AFM.PathDocuments.N=/home/example/example_folder_N/ 
 
-Para cada carpeta, ruta del workspace  (Sin el ultimo y colocando exactamente la misma ruta que se observa en la URL de Nuxeo dentro de ese WorkSpace)
+Each folder into FileSystem needs a workspace path into Athento ECM:
 
     AFM.PathWorkspace.1=/default-domain/workspaces/work_example_1
     AFM.PathWorkspace.2=/default-domain/workspaces/work_example_2
     ...
     AFM.PathWorkspace.N=/default-domain/workspaces/work_example_N
 
-Para cada carpeta es necesario colocar el ID del workspace
+If you need you can set the folder document id:
 
     AFM.IdWorkspace.1=<docId>
     ...
 
-Si se define la propiedad, el tipo de documento indicado, será el que se cree, en caso contrario se creara un File.
+You can define your document type to create from FileSystem:
 
     AFM.DocumentType=<Type>
 
