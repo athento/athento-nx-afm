@@ -29,10 +29,12 @@ Para cada carpeta, ruta del workspace  (Sin el ultimo y colocando exactamente la
     AFM.PathWorkspace.N=/default-domain/workspaces/work_example_N
 
 Para cada carpeta es necesario colocar el ID del workspace
+
     AFM.IdWorkspace.1=<docId>
     ...
 
 Si se define la propiedad, el tipo de documento indicado, será el que se cree, en caso contrario se creara un File.
+
     AFM.DocumentType =<Type>
 
 
