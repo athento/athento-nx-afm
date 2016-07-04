@@ -6,10 +6,10 @@ This plugin is used to upload files to a CMIS folder from a filesystem folder.
 
 ## How to use it?
 
-In nuxeo.properties the following properties must be created:
+In ${ATHENTO_HOST}/bin/nuxeo.conf the following properties must be created:
 
 ### Cuantas carpetas del FS estan siendo monitorizadas (N)
-    AFM.NumberOfFolders=N
+    AFM.NumberOfFolders=<N>
 
 Para cada carpeta, ruta en el FS
 
@@ -46,27 +46,8 @@ Si se define la propiedad, el tipo de documento indicado, será el que se cree, 
  * Blocking Check: Max idle time per file (if a file waits fo more than X minutes/seconds, an alert will raise).
  * Blocking Check Alert: WS URL or mail address to notify.
 
-
-### Latest version
-
-Details of the latest version can be found at http://doc.athento.com 
-
-### Documentation
-
-The documentation available can be found at http://doc.athento.com
-
-### Instalation
-
-Please see the file called INSTALL or http://doc.athento.com
-
-### Licensing
-
-Please see the file called LICENSE
-
 ### Contact
-
- * Ask for help at http://answers.athento.com
 
  * You can contact anybody at http://www.athento.com/contact
 
- * You can also write us to support@athento.com
+ * You can also write us to soporte@athento.com
